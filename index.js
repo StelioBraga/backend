@@ -3,16 +3,22 @@ const express = require('express');
 const { Pool, Client } = require('pg');
 const sendgridMail = require('@sendgrid/mail');
 const xl = require('excel4node');
+const env = require('dotenv')
 
+env.config();
 sendgridMail.setApiKey(process.env.SENDGRID_API_KEY);
 
+function sendEmail( name, email) {
+   
 // msg container
 const msg = {
     to:'steliobraga13@gmail.com',
     from:'desk2U@2ibi.com',
     subject:'new user created',
-    text:'dvdsvsvsv'
+    text:'The user '+ name+'wiht'+email+' ' ,
 };
+sendgridMail.send(msg);
+}
 
 /**
  * Transforms database query results into .xlsx (Excel formatted file)
@@ -59,8 +65,8 @@ app.post('/api/user', function(req, res) {
            console.log(error);
         }else{
             console.log("Terminou de executar INSERT")
-            // sendgridMail.send(msg);
-           res.sendStatus(200).end();
+          //  sendEmail(name,email)
+           res.sendStatus(200).end;
         }
     })
     

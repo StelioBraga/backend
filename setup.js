@@ -1,5 +1,6 @@
 const {Pool} = require("pg");
-
+const env = require('dotenv');
+env.config();
 
 const pool = new Pool();
 console.log("Creating your table...")
